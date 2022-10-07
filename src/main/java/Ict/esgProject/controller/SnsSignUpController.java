@@ -10,7 +10,7 @@ import java.util.Map;
 
 @AllArgsConstructor
 @RestController
-public class SnsLoginController {
+public class SnsSignUpController {
 
     private NaverSignUpService naverLoginService;
     private SignUpService signUpService;
@@ -23,7 +23,7 @@ public class SnsLoginController {
     }
 
     @PostMapping("esg/sign-up")
-    public ResponseEntity<?> singUp(@RequestBody Map<String,String> userInfo){
-        return signUpService.signUp(userInfo);
+    public ResponseEntity<?> singUp(@RequestBody Map<String,String> signUpInfo){
+        return signUpService.signUp(signUpInfo);
     }
 }

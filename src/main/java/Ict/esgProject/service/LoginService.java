@@ -1,7 +1,5 @@
 package Ict.esgProject.service;
 
-import Ict.esgProject.model.EnterprisesMrg;
-import Ict.esgProject.repository.EnterPrisesMrgMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

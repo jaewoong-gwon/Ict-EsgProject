@@ -1,9 +1,9 @@
 package Ict.esgProject.service;
 
 import Ict.esgProject.model.Administrator;
-import Ict.esgProject.model.EnterprisesMrg;
+import Ict.esgProject.model.EnterprisesInfo;
 import Ict.esgProject.repository.AdministratorMapper;
-import Ict.esgProject.repository.EnterPrisesMrgMapper;
+import Ict.esgProject.repository.EnterprisesInfoMapper;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class NaverSignUpService {
-    private final EnterPrisesMrgMapper enterPrisesMrgMapper;
+    private final EnterprisesInfoMapper enterprisesInfoMapper;
     private final AdministratorMapper administratorMapper;
 
     //Naver 에서 UserInfo 받아온 후, 최초가입 인지 아닌지 확인 후 적절한 응답 리턴.
@@ -62,9 +62,12 @@ public class NaverSignUpService {
             Map<String,String> response = new HashMap<>();
 
             if(flag){ //flag 가 true 인 경우 가입 절차 진행. 기업 담당자(사용자) 인 경우만 생각. -> 추후 관리자 회원가입 고려해야함.
-                //true 인 경우 flag() 에서 개인정보 db 저장 완료. 추후 저장이 완료되었고 회원가입이 진행되어도 된다는 정보 리턴.
-                EnterprisesMrg enterprisesMrg = enterPrisesMrgMapper.findByEmail(userInfo.getString("email"));
-                response.put("ent_mrg_email",enterprisesMrg.getEntMrgMobile());
+                //true 인 경우 flag() 에서 db 에 데이터 존재 유무 확인.
+                EnterprisesInfo enterprisesMrg = new EnterprisesInfo();
+                response.put("ent_mrg_email",userInfo.getString("email"));
+                response.put("ent_mrg_name",userInfo.getString("name"));
+                response.put("ent_mrg_mobile",userInfo.getString("mobile"));
+                response.put("ent_mrg_sns","NAVER");
                 response.put("message","Get UserInfo Success!");
                 return ResponseEntity.status(HttpStatus.OK).body(response);
             } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Get UserInfo Fail!");
@@ -96,15 +99,15 @@ public class NaverSignUpService {
 
     //db에 사용자가 존재하는지 체크.
     public boolean flag(JSONObject userInfo){
-        EnterprisesMrg enterprisesMrg = new EnterprisesMrg();
+        String userEmail = userInfo.getString("email");
 
-        enterprisesMrg.setEntMrgEmail(userInfo.getString("email"));
-        enterprisesMrg.setEntMrgPw(userInfo.getString("name"));
-        enterprisesMrg.setEntMrgMobile(userInfo.getString("mobile"));
-        enterprisesMrg.setEntMrgSns("NAVER");
+//        enterprisesInfo.setEntMrgEmail(userInfo.getString("email"));
+//        enterprisesMrg.setEntMrgPw(userInfo.getString("name"));
+//        enterprisesMrg.setEntMrgMobile(userInfo.getString("mobile"));
+//        enterprisesMrg.setEntMrgSns("NAVER");
 
-        EnterprisesMrg checkEnterprisesMrg = enterPrisesMrgMapper.findByEmail(userInfo.getString("email"));
-        Administrator checkAdministrator = administratorMapper.findByEmail(userInfo.getString("email"));
+        EnterprisesInfo checkEnterprisesInfo = enterprisesInfoMapper.findByEmail(userEmail);
+        Administrator checkAdministrator = administratorMapper.findByEmail(userEmail);
 
         /* if(checkEnterprisesMrg == null && checkAdministrator != null){ //관리자 테이블에 데이터가 있을 때
             return false;
@@ -117,10 +120,9 @@ public class NaverSignUpService {
         } */
 
         //db에 기업 담당자 or 관리자 데이터가 있는지 확인
-        if(checkAdministrator != null || checkEnterprisesMrg != null){
+        if(checkAdministrator != null || checkEnterprisesInfo != null){
             return false; //어느 한쪽에라도 null 이 아닌 경우(저장된 data 가 있는 경우) 가입 페이지로 넘어가지 않게 설정.
         } else {
-            enterPrisesMrgMapper.createEnterprisesMrg(enterprisesMrg);
             return true; //어느 한쪽에도 data 가 없는 경우
         }
     }
