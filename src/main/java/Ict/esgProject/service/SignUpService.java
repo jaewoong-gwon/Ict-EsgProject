@@ -37,16 +37,13 @@ public class SignUpService {
         enterprisesInfo.setEntMrgSns(userInfo.get("ent_mrg_sns"));
 
 
-        // db 에 기업 담당자 정보 저장.
-        enterprisesInfoMapper.createEnterprisesMrg(enterprisesInfo);
+        // db 에 기업 정보 저장.
+        int successEnt = enterprisesInfoMapper.createEnterprises(enterprisesInfo);
 
-        // db 에 기업 정보 저장. -> 기업이 기엄 담당자 정보 중 email 을 fk 로 가지므로, 기업 담당자 정보 저장이 선행되어야함.
-        enterprisesInfoMapper.createEnterprises(enterprisesInfo);
+        // db 에 기업 담당자 정보 저장. -> 기엄 담당자가 기업의 정보 중 idx 을 fk 로 가지므로, 기업 정보 저장이 선행되어야함.
+        int successEntMrg = enterprisesInfoMapper.createEnterprisesMrg(enterprisesInfo);
 
-        Map<String,String> response = new HashMap<>();
-
-        response.put("ent_mrg_email",enterprisesInfo.getEntMrgEmail());
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        if(successEnt * successEntMrg > 0) return ResponseEntity.status(HttpStatus.OK).body(enterprisesInfo);
+        else return ResponseEntity.status(HttpStatus.OK).body("실패");
     }
 }

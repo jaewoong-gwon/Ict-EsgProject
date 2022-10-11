@@ -1,11 +1,16 @@
 package Ict.esgProject.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-public class Governance {
+@Getter
+@Setter
+@ToString
+public class Governance extends EvalCat{
     private int govIdx;
-    private int evalResultIdx;
-    private int qusNo;
-    private int ansNo;
+    Governance(int evalResultIdx, int qusNo, int ansNo, int govIdx){
+        super(evalResultIdx,qusNo,ansNo);
+        this.govIdx = govIdx;
+    }
 }

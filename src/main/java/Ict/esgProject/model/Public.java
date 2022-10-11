@@ -1,11 +1,19 @@
 package Ict.esgProject.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-public class Public {
+
+@Getter
+@Setter
+@ToString
+public class Public extends EvalCat{
     private int pubIdx;
-    private int evalResultIdx;
-    private int qusNo;
-    private int ansNo;
+    Public(int evalResultIdx, int qusNo, int ansNo,int pubIdx){
+        super(evalResultIdx,qusNo,ansNo);
+        this.pubIdx = pubIdx;
+    }
+
 }
