@@ -16,8 +16,8 @@ public class LoginService {
     private final EnterprisesInfoMapper enterprisesInfoMapper;
 
     public ResponseEntity<?> loginProcess(Map<String,String> loginInfo){
-        String enterPrisesMrgEmail = loginInfo.get("email");
-        String enterPrisesMrgInputPw = loginInfo.get("pw");
+        String enterPrisesMrgEmail = loginInfo.get("ent_mrg_email");
+        String enterPrisesMrgInputPw = loginInfo.get("ent_mrg_pw");
 
         //db 조회
         EnterprisesInfo enterprisesInfo = enterprisesInfoMapper.findByEmail(enterPrisesMrgEmail);

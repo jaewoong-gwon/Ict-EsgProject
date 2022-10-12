@@ -1,54 +1,38 @@
 package Ict.esgProject.controller;
 
-import Ict.esgProject.model.EvalCat;
 import Ict.esgProject.service.EvaluationResultService;
 import lombok.AllArgsConstructor;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.*;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/esg")
 public class EvaluationResultController {
     private EvaluationResultService evaluationResultService;
 
-    @GetMapping("findEval")
-    public ResponseEntity<?> findEval(@RequestParam Map<String,String> params){
+    @GetMapping("/select/result/all")
+    public ResponseEntity<?> findEvalResult(@RequestParam Map<String,String> params){
+        // email 을 parameter 로 받아서 평가 결과 List 조회.
+        return evaluationResultService.getEvaluationResultList(params);
+    }
+
+    @GetMapping("/select/result")
+    public ResponseEntity<?> findEval(@RequestParam Map<String,Object> params) throws ParseException {
+        // email 을 parameter 로 받아서 db 조회. -> 상세 평가 결과(점수) 조회
         return evaluationResultService.getEvaluationResult(params);
     }
 
-    @PostMapping("createEval")
-    public ResponseEntity<?> createEval(@RequestBody HashMap<String,Object> params){
-//        String entMrgEmail = (String) params.get("ent_mrg_email");
-        System.out.println("getName : " + params.get("ent_mrg_email").getClass().getName());
-        System.out.println("toString : " + params.get("ent_mrg_email").toString());
-        System.out.println("getName : " + params.get("environment").getClass().getName());
-        System.out.println("toString : " + params.get("environment").toString());
-        System.out.println("getName : " + params.get("governance").getClass().getName());
-        System.out.println("toString : " + params.get("governance").toString());
-        System.out.println("getName : " + params.get("public").getClass().getName());
-        System.out.println("toString : " + params.get("public").toString());
+    @PostMapping("/insert/result")
+    public ResponseEntity<?> createEval(@RequestBody Map<String,Object> params) throws ParseException {
+        // Request Parameter 로 기업 담당자 이메일(ent_mrg_email), 평가 날짜(eval_date) 를 받아 전달.
 
-//        String st = (String) params.get("public");
-//        String[] stArrays = st.split(",");
-//        System.out.println(st);
-//        int[] intArrays = new int[stArrays.length];
-//        for(int i = 0; i < stArrays.length; i++){
-//            intArrays[i] = Integer.parseInt(stArrays[i]);
-//        }
-//        System.out.println(Arrays.toString(intArrays));
-//        System.out.println("________________________");
-//        System.out.println(params.get("social").getClass().getName());
-//        System.out.println(params.get("social").toString());
-        ArrayList intArrays2 = (ArrayList) params.get("social");
-        System.out.println(intArrays2.toString());
-//        JSONArray object = new JSONArray(params).getJSONObject();
-//        if(evaluationResultService.createEvaluationResult(entMrgEmail)){
-//            List<EvalCat> publicList = params.get("")
-//        }
-        return null;
+        if(evaluationResultService.createEvaluationResult(params)){
+            return evaluationResultService.getEvaluationResult(params);
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("실패");
     }
 }

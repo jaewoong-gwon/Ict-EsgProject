@@ -44,6 +44,6 @@ public class SignUpService {
         int successEntMrg = enterprisesInfoMapper.createEnterprisesMrg(enterprisesInfo);
 
         if(successEnt * successEntMrg > 0) return ResponseEntity.status(HttpStatus.OK).body(enterprisesInfo);
-        else return ResponseEntity.status(HttpStatus.OK).body("실패");
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("실패");
     }
 }

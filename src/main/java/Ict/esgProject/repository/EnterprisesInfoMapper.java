@@ -5,7 +5,10 @@ import org.apache.ibatis.annotations.*;
 
 
 /*
-    EnterprisesInfo -> Enterprises_Mrg 와 Enterprises 테이블을 INNER JOIN 해둔 VIEW
+ * @Author 권재웅
+ * @Param
+ * @Return
+ * EnterprisesInfo -> Enterprises_Mrg 와 Enterprises 테이블을 INNER JOIN 해둔 VIEW
  */
 @Mapper
 public interface EnterprisesInfoMapper {

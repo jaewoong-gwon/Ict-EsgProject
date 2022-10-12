@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.scanner.ScannerImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,16 +15,19 @@ import java.util.Map;
 @Slf4j
 @RestController
 @AllArgsConstructor
+@RequestMapping("/esg")
 public class testController {
     private EnterprisesInfoMapper enterprisesInfoMapper;
 
     @GetMapping("/test")
-    public ResponseEntity<?> test(@RequestParam Map<String,String> params){
-        EnterprisesInfo enterprisesInfo = enterprisesInfoMapper.findByEmail(params.get("ent_mrg_email"));
-        return ResponseEntity.status(HttpStatus.OK).body(enterprisesInfo);
-    }
+    public ResponseEntity<?> test(@RequestParam Map<String,String> asd) {
+//        EnterprisesInfo enterprisesInfo = enterprisesInfoMapper.findByEmail(params.get("ent_mrg_email"));
+//        log.debug("aa", new Throwable());
+//        return ResponseEntity.status(HttpStatus.OK).body(enterprisesInfo);
+        return null;
+        }
 
-    @GetMapping("select")
+    @GetMapping("/select")
     public ResponseEntity<?> tt(@RequestParam Map<String,String> params){
         Map<String,Object> res = new HashMap<>();
         res.put("message","fuck");

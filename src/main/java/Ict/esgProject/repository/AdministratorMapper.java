@@ -12,7 +12,7 @@ public interface AdministratorMapper {
     @Select("SELECT * FROM Administrator")
     List<Administrator> findAll();
 
-    @Select("SELECT * FROM Administrator WHERE (admin_email = #{adminEmail)")
+    @Select("SELECT * FROM Administrator WHERE ( admin_email = #{adminEmail} )")
     Administrator findByEmail(String adminEmail);
 
     @Insert("INSERT INTO Administrator (admin_email,admin_name,admin_mobile,admin_sns)" +

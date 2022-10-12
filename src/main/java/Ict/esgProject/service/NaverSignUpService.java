@@ -119,12 +119,16 @@ public class NaverSignUpService {
             return true;
         } */
 
+
         //db에 기업 담당자 or 관리자 데이터가 있는지 확인
-        if(checkAdministrator != null || checkEnterprisesInfo != null){
-            return false; //어느 한쪽에라도 null 이 아닌 경우(저장된 data 가 있는 경우) 가입 페이지로 넘어가지 않게 설정.
-        } else {
-            return true; //어느 한쪽에도 data 가 없는 경우
-        }
+//        System.out.println("checkAdministrator : " + checkAdministrator);
+//        System.out.println("checkEnterprisesInfo : " + checkEnterprisesInfo);
+//        if(checkAdministrator == null && checkEnterprisesInfo == null){
+//            return true; //어느 한쪽에라도 null 이 아닌 경우(저장된 data 가 있는 경우) 가입 페이지로 넘어가지 않게 설정.
+//        } else {
+//            return false; //어느 한쪽에도 data 가 없는 경우
+//        }
+        return checkAdministrator == null && checkEnterprisesInfo == null;
     }
 
 
