@@ -18,6 +18,7 @@ public class EnterprisesInfo {
     //Enterprises
     private String entName;
     private String entCat;
+    private String entBossName;
     private String entDetailsCat;
     private String entMajorProd;
     private String entMajorClnt;

@@ -24,7 +24,7 @@ public class SnsSignUpController {
         return naverLoginService.getUserInfo(params.get("access_token"));
     }
 
-    @PostMapping("/other")
+    @PostMapping("/new/user")
     public ResponseEntity<?> singUp(@RequestBody Map<String,String> signUpInfo){
         return signUpService.signUp(signUpInfo);
     }

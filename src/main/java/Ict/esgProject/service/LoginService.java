@@ -31,11 +31,28 @@ public class LoginService {
             if(enterprisesInfo.getEntMrgPw().equals(enterPrisesMrgInputPw)){
                 response.put("message","로그인 성공!");
                 response.put("enterprisesInfo",enterprisesInfo);
+                response.put("role","user");
                 return ResponseEntity.status(HttpStatus.OK).body(response);
             } else {
                 response.put("message","비밀번호가 틀렸습니다!");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
             }
         }
+    }
+
+    public EnterprisesInfo checkInfo(Map<String,String> userInfo){
+        EnterprisesInfo check = new EnterprisesInfo();
+        check.setEntMrgEmail(userInfo.get("ent_mrg_email"));
+        check.setEntMrgMobile(userInfo.get("ent_mrg_mobile"));
+        EnterprisesInfo user = enterprisesInfoMapper.findEnterprisesInfo(check);
+        if( user != null ) return user;
+        else return null;
+    }
+
+    public boolean changePassword(EnterprisesInfo changeInfo){
+        int res = enterprisesInfoMapper.changePw(changeInfo);
+
+        if(res > 0 ) return true;
+        else return false;
     }
 }

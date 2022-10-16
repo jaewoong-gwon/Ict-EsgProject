@@ -2,7 +2,6 @@ package Ict.esgProject.service;
 
 import Ict.esgProject.model.*;
 import Ict.esgProject.repository.EvaluationResultMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +23,9 @@ public class EvaluationResultService {
         evaluationResult.setEntMrgEmail(String.valueOf(params.get("ent_mrg_email"))); // P.K 설정.
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date evalDate = null;
+        Date evalDate = new Date();
         try {
-            evalDate = formatter.parse(String.valueOf(Calendar.getInstance().getTime()));
+            evalDate = formatter.parse(String.valueOf(evalDate));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -79,23 +78,22 @@ public class EvaluationResultService {
 
     //상세 진단 결과 조회
     public ResponseEntity<?> getEvaluationResult(Map<String,Object> params) throws ParseException {
-        EvaluationResult evaluationResult = new EvaluationResult();
 
+        /*
+        Date 설정
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date evalDate = formatter.parse(String.valueOf(params.get("eval_date")));
+        */
 
-        evaluationResult.setEntMrgEmail(String.valueOf(params.get("ent_mrg_email")));
-        evaluationResult.setEvalDate(evalDate);
-
-         EvaluationResult res = evaluationResultMapper.findEvaluation(evaluationResult);
-
-         // 기업 담당자 이메일과, 평가 날짜로 db 조회 성공시,
-        if(res != null){
+        int evalIdx = Integer.parseInt(String.valueOf(params.get("eval_idx")));
+        EvaluationResult result = evaluationResultMapper.findEvaluationByIdx(evalIdx);
+         // db 조회 성공시, parameter 로 받은 evalIdx 사용 가능.
+        if( result != null){
             //각각의 평가 항목을 받아옴.
-            List<EvalCat> publicList = evaluationResultMapper.findListPublicByIdx(res.getEvalResultIdx());
-            List<EvalCat> environmentList = evaluationResultMapper.findListEnvironmentByIdx(res.getEvalResultIdx());
-            List<EvalCat> socialList = evaluationResultMapper.findListSocialByIdx(res.getEvalResultIdx());
-            List<EvalCat> governanceList = evaluationResultMapper.findListGovernanceByIdx(res.getEvalResultIdx());
+            List<EvalCat> publicList = evaluationResultMapper.findListPublicByIdx(evalIdx);
+            List<EvalCat> environmentList = evaluationResultMapper.findListEnvironmentByIdx(evalIdx);
+            List<EvalCat> socialList = evaluationResultMapper.findListSocialByIdx(evalIdx);
+            List<EvalCat> governanceList = evaluationResultMapper.findListGovernanceByIdx(evalIdx);
 
             // process 메소드에서 해당 결과 들을 점수화.
             Map<String,Object> response = new HashMap<>();

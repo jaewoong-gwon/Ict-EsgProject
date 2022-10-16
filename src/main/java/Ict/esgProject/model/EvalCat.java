@@ -1,26 +1,17 @@
 package Ict.esgProject.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 //P,E,S,G 를 묶는 추상클래스.
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
 public class EvalCat {
+
+    private String catType; // db에 없는 칼럼. 해당 타입에 따라 테이블이 결정.
     private int evalResultIdx;
     private int qusNo;
     private int ansNo;
-
-    public EvalCat(){
-
-    }
-    public EvalCat(int evalResultIdx, int qusNo, int ansNo) {
-        this.evalResultIdx = evalResultIdx;
-        this.qusNo = qusNo;
-        this.ansNo = ansNo;
-    }
 
 }
