@@ -9,6 +9,10 @@ mybatis:
     map-underscore-to-camel-case : true
 
 spring:
+  #console 색 변경 가능 옵션?
+  output:
+    ansi:
+      enabled : always
   #datasource ?? - mybatis-config.xml ???? ??.
   datasource:
     driver-class-name : com.mysql.cj.jdbc.Driver
@@ -17,7 +21,6 @@ spring:
     password : esg
 
   logging:
-    level:
-      Ict.esgProject : DEBUG
+    config: classpath:logback-spring.xml
 
 

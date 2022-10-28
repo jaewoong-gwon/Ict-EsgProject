@@ -2,7 +2,7 @@ package Ict.esgProject.model;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 public class EvaluationResult {
@@ -10,4 +10,6 @@ public class EvaluationResult {
     private String entMrgEmail;
     private Date evalDate;
     private String evalFeedback;
+    private String entName;
+
 }

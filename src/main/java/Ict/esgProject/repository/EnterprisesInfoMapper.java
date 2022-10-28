@@ -3,6 +3,8 @@ package Ict.esgProject.repository;
 import Ict.esgProject.model.EnterprisesInfo;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 
 /*
  * @Author 권재웅
@@ -18,6 +20,9 @@ public interface EnterprisesInfoMapper {
     EnterprisesInfo findByEmail(String entMrgEmail);
     @Select("SELECT * FROM Enterprises_Info WHERE ent_mrg_email = #{entMrgEmail} AND (ent_mrg_mobile) = #{entMrgMobile}")
     EnterprisesInfo findEnterprisesInfo(EnterprisesInfo userInfo);
+
+    @Select("SELECT * FROM Enterprises_Info ORDER BY ent_idx")
+    List<EnterprisesInfo> findAllByAdmin();
 
     //Enterprises
     @Select("SELECT ent_idx FROM Enterprises WHERE ent_mrg_email = #{entMrgEmail}")
