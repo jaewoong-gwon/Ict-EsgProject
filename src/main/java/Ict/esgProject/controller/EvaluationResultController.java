@@ -16,6 +16,7 @@ import java.util.*;
 public class EvaluationResultController {
     private EvaluationResultService evaluationResultService;
 
+
     @GetMapping("/result/all")
     public ResponseEntity<?> findEvalResult(@RequestParam Map<String,String> params){
 

@@ -24,6 +24,9 @@ public interface EnterprisesInfoMapper {
     @Select("SELECT * FROM Enterprises_Info ORDER BY ent_idx")
     List<EnterprisesInfo> findAllByAdmin();
 
+    @Select("SELECT * FROM Enterprises_Info WHERE ent_name LIKE '%#{entName}%' ")
+    List<EnterprisesInfo> findEnterprisesByName(String entName);
+
     //Enterprises
     @Select("SELECT ent_idx FROM Enterprises WHERE ent_mrg_email = #{entMrgEmail}")
     int findIdxByEmail(String entMrgEmail);

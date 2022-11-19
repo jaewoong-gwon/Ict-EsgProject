@@ -28,6 +28,14 @@ public class AdminService {
         return checkAdmin != null;
     }
 
+    public List<EnterprisesInfo> findEnterprisesInfoByName(String entName){
+        return enterprisesInfoMapper.findEnterprisesByName(entName);
+    }
+
+    public int updateEvalFeedBack(EvaluationResult evaluationResult){
+        return evaluationResultMapper.updateFeedBack(evaluationResult);
+    }
+
     public Map<String,Object> getAllEvalResultOfEnt(){
         List<EvaluationResult> lists = evaluationResultMapper.findAllByAdmin();
         log.info("/admin/get/result/all -  getAllEvalResultOfEnt() : {}",lists);
@@ -42,5 +50,9 @@ public class AdminService {
             Map<String,Object> response = new HashMap<>();
             response.put("response",lists);
             return response;
+        }
+
+        public EvaluationResult getResult(EvaluationResult evaluationResult) {
+            return evaluationResultMapper.findEvaluationByIdx(evaluationResult.getEvalResultIdx());
         }
     }

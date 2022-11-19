@@ -1,10 +1,7 @@
 package Ict.esgProject.repository;
 
 import Ict.esgProject.model.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,7 +14,6 @@ public interface EvaluationResultMapper {
 
     @Select("SELECT * FROM evaluation_result_view ORDER BY ent_mrg_email,eval_result_idx")
     List<EvaluationResult> findAllByAdmin();
-
 
     //상세 진단 결과 조회 - 상세 점수를 얻기 위해, 하나의 결과만 리턴. PK 인 idx 로 조회.
     @Select("SELECT * FROM Evaluation_Result_view WHERE (eval_result_idx) = #{evalResultIdx}")
@@ -45,6 +41,9 @@ public interface EvaluationResultMapper {
 
     @Select("SELECT * FROM Governance WHERE eval_result_idx = #{evalResultIdx}")
     List<EvalCat> findListGovernanceByIdx(int evalResultIdx);
+
+    @Update("UPDATE Evaluation_Result SET eval_feedback = #{evalFeedback} WHERE eval_result_idx = #{evalResultIdx}")
+    int updateFeedBack(EvaluationResult evaluationResult);
 
     @Insert("INSERT INTO Public (eval_result_idx,qus_no,ans_no) VALUES (#{evalResultIdx},#{qusNo},#{ansNo})")
     boolean createPublic(EvalCat pub);

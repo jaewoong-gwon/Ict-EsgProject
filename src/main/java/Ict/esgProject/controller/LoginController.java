@@ -12,6 +12,7 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 @RestController
+//-> 프론트 단에셔 통신요청 실패
 @RequestMapping("/esg")
 public class LoginController {
     private LoginService loginService;
