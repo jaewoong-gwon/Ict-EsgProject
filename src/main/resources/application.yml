@@ -9,7 +9,10 @@ mybatis:
     map-underscore-to-camel-case : true
 
 spring:
-  #datasource ?? - mybatis-config.xml ???? ??.
+  output:
+    ansi:
+      enabled : always
+
   datasource:
     driver-class-name : com.mysql.cj.jdbc.Driver
     url : jdbc:mysql://localhost:3306/esg?characterEncoding=utf8
@@ -17,7 +20,6 @@ spring:
     password : esg
 
   logging:
-    level:
-      Ict.esgProject : DEBUG
+    config: classpath:logback-spring.xml
 
 
