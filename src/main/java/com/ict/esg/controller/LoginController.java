@@ -1,7 +1,7 @@
-package Ict.esgProject.controller;
+package com.ict.esg.controller;
 
-import Ict.esgProject.model.EnterprisesInfo;
-import Ict.esgProject.service.LoginService;
+import com.ict.esg.model.EnterprisesInfo;
+import com.ict.esg.service.LoginService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+
 @Slf4j
 @AllArgsConstructor
 @RestController

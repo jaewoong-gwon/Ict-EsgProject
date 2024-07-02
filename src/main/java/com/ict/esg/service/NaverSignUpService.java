@@ -1,9 +1,9 @@
-package Ict.esgProject.service;
+package com.ict.esg.service;
 
-import Ict.esgProject.model.Administrator;
-import Ict.esgProject.model.EnterprisesInfo;
-import Ict.esgProject.repository.AdministratorMapper;
-import Ict.esgProject.repository.EnterprisesInfoMapper;
+import com.ict.esg.model.Administrator;
+import com.ict.esg.model.EnterprisesInfo;
+import com.ict.esg.repository.AdministratorMapper;
+import com.ict.esg.repository.EnterprisesInfoMapper;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
 
 @Service
 @AllArgsConstructor

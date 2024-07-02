@@ -1,13 +1,12 @@
-package Ict.esgProject.service;
+package com.ict.esg.service;
 
-import Ict.esgProject.model.Administrator;
-import Ict.esgProject.model.EnterprisesInfo;
-import Ict.esgProject.repository.AdministratorMapper;
-import Ict.esgProject.repository.EnterprisesInfoMapper;
+import com.ict.esg.model.Administrator;
+import com.ict.esg.model.EnterprisesInfo;
+import com.ict.esg.repository.AdministratorMapper;
+import com.ict.esg.repository.EnterprisesInfoMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

@@ -1,10 +1,9 @@
-package Ict.esgProject.controller;
+package com.ict.esg.controller;
 
-import Ict.esgProject.model.Administrator;
-import Ict.esgProject.model.EnterprisesInfo;
-import Ict.esgProject.model.EvalCat;
-import Ict.esgProject.model.EvaluationResult;
-import Ict.esgProject.service.AdminService;
+import com.ict.esg.model.Administrator;
+import com.ict.esg.model.EnterprisesInfo;
+import com.ict.esg.model.EvaluationResult;
+import com.ict.esg.service.AdminService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
