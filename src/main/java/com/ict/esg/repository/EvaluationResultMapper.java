@@ -2,7 +2,6 @@ package com.ict.esg.repository;
 
 import com.ict.esg.model.EvalCat;
 import com.ict.esg.model.EvaluationResult;
-import Ict.esgProject.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
