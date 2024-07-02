@@ -1,4 +1,4 @@
-package Ict.esgProject.model;
+package com.ict.esg.model;
 
 import lombok.Data;
 

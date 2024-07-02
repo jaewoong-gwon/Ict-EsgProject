@@ -1,11 +1,11 @@
-package Ict.esgProject.service;
+package com.ict.esg.service;
 
-import Ict.esgProject.model.Administrator;
-import Ict.esgProject.model.EnterprisesInfo;
-import Ict.esgProject.model.EvaluationResult;
-import Ict.esgProject.repository.AdministratorMapper;
-import Ict.esgProject.repository.EnterprisesInfoMapper;
-import Ict.esgProject.repository.EvaluationResultMapper;
+import com.ict.esg.model.Administrator;
+import com.ict.esg.model.EnterprisesInfo;
+import com.ict.esg.model.EvaluationResult;
+import com.ict.esg.repository.AdministratorMapper;
+import com.ict.esg.repository.EnterprisesInfoMapper;
+import com.ict.esg.repository.EvaluationResultMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

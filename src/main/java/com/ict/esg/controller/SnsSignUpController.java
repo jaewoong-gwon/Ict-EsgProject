@@ -1,13 +1,14 @@
-package Ict.esgProject.controller;
+package com.ict.esg.controller;
 
-import Ict.esgProject.service.NaverSignUpService;
-import Ict.esgProject.service.SignUpService;
+import com.ict.esg.service.NaverSignUpService;
+import com.ict.esg.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController

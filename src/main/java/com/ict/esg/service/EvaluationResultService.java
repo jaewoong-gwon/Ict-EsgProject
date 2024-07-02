@@ -1,7 +1,9 @@
-package Ict.esgProject.service;
+package com.ict.esg.service;
 
+import com.ict.esg.model.EvalCat;
+import com.ict.esg.model.EvaluationResult;
 import Ict.esgProject.model.*;
-import Ict.esgProject.repository.EvaluationResultMapper;
+import com.ict.esg.repository.EvaluationResultMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

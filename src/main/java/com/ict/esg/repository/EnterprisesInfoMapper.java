@@ -1,10 +1,10 @@
-package Ict.esgProject.repository;
+package com.ict.esg.repository;
 
-import Ict.esgProject.model.EnterprisesInfo;
+import com.ict.esg.model.EnterprisesInfo;
+
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-
 
 /*
  * @Author 권재웅

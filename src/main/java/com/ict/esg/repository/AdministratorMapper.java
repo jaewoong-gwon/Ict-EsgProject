@@ -1,6 +1,7 @@
-package Ict.esgProject.repository;
+package com.ict.esg.repository;
 
-import Ict.esgProject.model.Administrator;
+import com.ict.esg.model.Administrator;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
