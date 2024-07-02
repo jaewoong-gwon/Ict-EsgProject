@@ -2,7 +2,6 @@ package com.ict.esg.service;
 
 import com.ict.esg.model.EvalCat;
 import com.ict.esg.model.EvaluationResult;
-import Ict.esgProject.model.*;
 import com.ict.esg.repository.EvaluationResultMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
