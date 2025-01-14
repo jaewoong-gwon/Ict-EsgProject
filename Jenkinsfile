@@ -5,15 +5,24 @@ pipeline {
 		USER = 'ubuntu'              // 원격 서버의 SSH 사용자 이름
         HOST = '134.185.97.121'
         DIR = '/home/dev/esg-self-assessment'
+        TARGET_BRANCH = 'main'
     }
 
+	triggers {
+		// Pull request 이벤트 발생 시 트리거
+        githubPullRequest {
+			// GitHub에서 PR merge시 트리거됩니다
+            types: ['opened', 'reopened', 'synchronize', 'closed']
+        }
+    }
     stages {
 		stage('Check Branch') {
 			steps {
 				script {
-					if (env.GIT_BRANCH != 'origin/main') {
-						echo "Not main branch. current branch : ${env.GIT_BRANCH}"
-						currentBuild.result = 'SUCCESS'
+					echo "CHANGE TARGET : ${CHANGE_TARGET}"
+					if (env.CHANGE_TARGET != TARGET_BRANCH) {
+						echo "Not merging into ${TARGET_BRANCH}. Skipping deployment."
+                        currentBuild.result = 'SUCCESS'
                         return
                     }
                 }
