@@ -1,7 +1,7 @@
 # 빌드 스테이지
 FROM gradle:7.4-jdk17 AS build
 WORKDIR /app
-COPY src .
+COPY . .
 RUN ./gradlew build -x test
 # 실행 스테이지
 FROM openjdk:17-jdk-slim
