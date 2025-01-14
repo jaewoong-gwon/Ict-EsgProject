@@ -12,8 +12,8 @@ pipeline {
 		stage('Check Branch') {
 			steps {
 				script {
-					echo "CHANGE TARGET : ${CHANGE_TARGET}"
-					if (env.CHANGE_TARGET != TARGET_BRANCH) {
+					echo "Current branch : ${env.BRANCH_NAME}"
+					if (env.BRANCH_NAME != TARGET_BRANCH) {
 						echo "Not merging into ${TARGET_BRANCH}. Skipping deployment."
                         currentBuild.result = 'SUCCESS'
                         return
