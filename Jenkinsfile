@@ -8,13 +8,6 @@ pipeline {
         TARGET_BRANCH = 'main'
     }
 
-	triggers {
-		// Pull request 이벤트 발생 시 트리거
-        githubPullRequest {
-			// GitHub에서 PR merge시 트리거됩니다
-            types: ['opened', 'reopened', 'synchronize', 'closed']
-        }
-    }
     stages {
 		stage('Check Branch') {
 			steps {
