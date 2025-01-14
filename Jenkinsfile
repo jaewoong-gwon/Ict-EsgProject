@@ -7,13 +7,16 @@ pipeline {
     }
 
     stages {
-		stage('Git Clone') {
+		stage('Checkout') {
 			steps {
-				git url : ${TARGET_URL}, branch : ${TARGET_BRANCH}
+				git branch: env.GIT_BRANCH, url: ${TARGET_URL}
             }
         }
 
         stage('Deploy') {
+			when {
+				expression {env.GIT_BRANCH == 'main'}
+			}
 			steps {
 				sshagent(credentials: ['dev-server-ssh']) {
 					sh """
