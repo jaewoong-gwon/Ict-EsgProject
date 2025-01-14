@@ -15,7 +15,7 @@ pipeline {
 					if (env.BRANCH_NAME != TARGET_BRANCH) {
 						echo "Not merging into ${TARGET_BRANCH}. Skipping deployment."
                         currentBuild.result = 'SUCCESS'
-                        error("Not the main branch, skipping build.")
+                        exit 0
                     }
                     echo "Current branch : ${env.BRANCH_NAME}"
                 }
