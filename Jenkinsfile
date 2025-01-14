@@ -7,15 +7,12 @@ pipeline {
         DIR = '/home/dev/esg-self-assessment'
     }
 
-    triggers {
-		githubPush() // GitHub Webhook 트리거
-    }
-
     stages {
 		stage('Check Branch') {
 			steps {
 				script {
 					if (env.GIT_BRANCH != 'origin/main') {
+						echo "Not main branch. current branch : ${env.GIT_BRANCH}"
 						currentBuild.result = 'SUCCESS'
                         return
                     }
