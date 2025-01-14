@@ -2,37 +2,23 @@ pipeline {
 	agent any
 
     environment {
-		USER = 'ubuntu'              // 원격 서버의 SSH 사용자 이름
-        HOST = '134.185.97.121'
-        DIR = '/home/dev/esg-self-assessment'
-    }
-
-    triggers {
-		githubPush() // GitHub Webhook 트리거
+		TARGET_BRANCH = 'main'
+		TARGET_URL = 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
     }
 
     stages {
-		stage('Check Branch') {
+		stage('Git Clone') {
 			steps {
-				script {
-					if (env.GIT_BRANCH != 'origin/main') {
-						currentBuild.result = 'SUCCESS'
-                        return
-                    }
-                }
+				git url : ${TARGET_URL}, branch : ${TARGET_BRANCH}
             }
         }
-        stage('Git Clone') {
-			steps {
-				git branch: 'main', url: 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
-            }
-        }
+
         stage('Deploy') {
 			steps {
 				sshagent(credentials: ['dev-server-ssh']) {
 					sh """
-                        ssh -o StrictHostKeyChecking=no ${USER}@${HOST} << EOF
-                        cd ${DIR}
+                        ssh -o StrictHostKeyChecking=no ${env.USER}@${env.HOST} << EOF
+                        cd ${env.DIR}
                         docker compose down
                         docker compose up -d --build
                         exit
