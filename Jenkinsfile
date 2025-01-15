@@ -1,6 +1,7 @@
 pipeline {
 	agent any
 
+	/*
     environment {
 		TARGET_BRANCH = 'main'
         TARGET_URL = 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
@@ -8,8 +9,9 @@ pipeline {
         GIT_API = "https://api.github.com/repos"
         FLAG = 'false'
     }
-
+	*/
     stages {
+		/*
 		stage('Checkout') {
 			steps {
 				script {
@@ -35,12 +37,9 @@ pipeline {
                 }
             }
         }
-
+		*/
         stage('Build') {
-			when {
-				expression { env.FLAG == 'true' }
-            }
-            steps {
+			steps {
 				script {
 					echo "Start Build"
                     sh 'pwd'
@@ -51,10 +50,7 @@ pipeline {
         }
 
         stage('Deploy') {
-			when {
-				expression { env.FLAG == 'true' }
-            }
-            steps {
+			steps {
 				sshagent(credentials: ['dev-server-ssh']) {
 					sh """
                         ssh -o StrictHostKeyChecking=no ${env.SERVER_USER}@${env.SERVER_IP}
