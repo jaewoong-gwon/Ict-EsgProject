@@ -4,22 +4,27 @@ pipeline {
     environment {
 		TARGET_BRANCH = 'main'
 		TARGET_URL = 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
+		CREDENTIALS_ID = 'Github'
     }
 
     stages {
 		stage('Checkout') {
+			when {
+				expression {env.CHANGE_TARGET == "${TARGET_BRANCH}"}
+			}
 			steps {
 				script {
 					echo "env git branch : ${env.GIT_BRANCH}"
+					echo "env branch name : ${env.BRANCH_NAME}"
 					echo "env git target : ${env.CHANGE_TARGET}"
 				}
-				git branch: env.GIT_BRANCH, url: "${TARGET_URL}", credentialsId : 'Github'
+				git branch: env.CHANGE_TARGET, url: "${TARGET_URL}", credentialsId : "${CREDENTIALS_ID}"
             }
         }
 
         stage('Deploy') {
 			when {
-				expression {env.GIT_BRANCH == 'main'}
+				expression {env.CHANGE_TARGET == "${TARGET_BRANCH}"}
 			}
 			steps {
 				sshagent(credentials: ['dev-server-ssh']) {
