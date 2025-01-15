@@ -15,7 +15,7 @@ pipeline {
 				script {
 					def repo = TARGET_URL.split('/').last().replace('.git', '')
                     def response = sh(script: """
-                        curl -H "Authorization: token ${GITHUB_TOKEN}" \
+                        curl -H Authorization: token $GITHUB_TOKEN_PSW \
                         ${GIT_API}/${env.GIT_OWNER}/${repo}/pulls/${env.CHANGE_ID} \
                         | grep '"merged":' | cut -d ':' -f 2 | tr -d '", '
                     """, returnStdout: true).trim()
@@ -28,7 +28,7 @@ pipeline {
 
                     if (response == '' || response.toBoolean() == false) return
 
-                    if (env.CHANGE_TARGET != "${TARGET_BRANCH}") return
+                    if (env.CHANGE_TARGET != "${TARGET_BRANCH}" ) return
 
 					env.FLAG = 'true'
 					git branch: "${env.CHANGE_TARGET}", url: "${TARGET_URL}"
