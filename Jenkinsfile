@@ -20,16 +20,18 @@ pipeline {
                         | grep '"merged":' | cut -d ':' -f 2 | tr -d '", '
                     """, returnStdout: true).trim()
 
-                    echo "env git branch : ${env.GIT_BRANCH}"
-                    echo "env branch name : ${env.BRANCH_NAME}"
-                    echo "env git target : ${env.CHANGE_TARGET}"
+                    echo " \
+						env git branch : ${env.GIT_BRANCH} \
+						env branch name : ${env.BRANCH_NAME} \
+						env git target : ${env.CHANGE_TARGET} \
+						response : ${response} "
 
                     if (response == '' || response.toBoolean() == false) return
 
-                    if (env.CHANGE_TARGET == "${TARGET_BRANCH}") {
-						env.FLAG = 'true'
-               			git branch: "${env.CHANGE_TARGET}", url: "${TARGET_URL}"
-                    }
+                    if (env.CHANGE_TARGET != "${TARGET_BRANCH}") return
+
+					env.FLAG = 'true'
+					git branch: "${env.CHANGE_TARGET}", url: "${TARGET_URL}"
                 }
             }
         }
