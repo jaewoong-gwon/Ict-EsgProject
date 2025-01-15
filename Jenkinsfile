@@ -28,9 +28,9 @@ pipeline {
 
                     if (env.CHANGE_TARGET == "${TARGET_BRANCH}") {
 						env.FLAG = 'true'
+               			git branch: "${env.CHANGE_TARGET}", url: "${TARGET_URL}"
                     }
                 }
-                git branch: "${env.CHANGE_TARGET}", url: "${TARGET_URL}"
             }
         }
 
@@ -50,14 +50,14 @@ pipeline {
 
         stage('Deploy') {
 			when {
-				expression { env.CHANGE_TARGET == "${TARGET_BRANCH}" }
+				expression { env.FLAG == 'true' }
             }
             steps {
 				sshagent(credentials: ['dev-server-ssh']) {
 					sh """
-                        ssh -o StrictHostKeyChecking=no ${env.USER}@${env.HOST}
-                        scp \$(pwd)/build/libs/*.jar ${env.USER}@${env.HOST}:${env.DIR}
-                        ssh -t ${env.USER}@${env.HOST} ./deploy.sh
+                        ssh -o StrictHostKeyChecking=no ${env.SERVER_USER}@${env.SERVER_IP}
+                        scp \$(pwd)/build/libs/*.jar ${env.SERVER_USER}@${env.SERVER_IP}:${env.PROJECT_DIR}
+                        ssh -t ${env.SERVER_USER}@${env.SERVER_IP} ${env.PROJECT_DIR}/deploy.sh
                     """
                 }
             }
