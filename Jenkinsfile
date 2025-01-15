@@ -4,7 +4,7 @@ pipeline {
     environment {
 		TARGET_BRANCH = 'main'
 		TARGET_URL = 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
-		CREDENTIALS_ID = 'Github'
+		GIT_CREDENTIALS_ID = 'Github'
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
 					echo "env branch name : ${env.BRANCH_NAME}"
 					echo "env git target : ${env.CHANGE_TARGET}"
 				}
-				git branch: env.CHANGE_TARGET, url: "${TARGET_URL}", credentialsId : "${CREDENTIALS_ID}"
+				git branch: env.CHANGE_TARGET, url: "${TARGET_URL}", credentialsId : "${GIT_CREDENTIALS_ID}"
             }
         }
 
@@ -43,12 +43,9 @@ pipeline {
 			steps {
 				sshagent(credentials: ['dev-server-ssh']) {
 					sh """
-                        ssh -o StrictHostKeyChecking=no ${env.USER}@${env.HOST} << EOF
-                        cd ${env.DIR}
-                        git pull origin ${TARGET_BRANCH}
-                        docker compose down && docker compose up -d --build
-                        exit
-                        EOF
+                        ssh -o StrictHostKeyChecking=no ${env.USER}@${env.HOST}
+                        scp ${pwd}/build/libs/*.jar ${env.USER}@${evn.HOST}:${env.DIR}
+						ssh -t ${env.USER}@${env.HOST} ./deploy.sh
                     """
                 }
             }
