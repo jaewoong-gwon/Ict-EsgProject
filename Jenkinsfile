@@ -22,6 +22,22 @@ pipeline {
             }
         }
 
+        stage('Build') {
+			when {
+				expression {env.CHANGE_TARGET == "${TARGET_BRANCH}"}
+			}
+			steps {
+				script {
+					echo "Start Build"
+					sh 'pwd'
+					sh './gradlew build -x test'
+					echo "End Build"
+				}
+			}
+		}
+	}
+}
+
         stage('Deploy') {
 			when {
 				expression {env.CHANGE_TARGET == "${TARGET_BRANCH}"}
@@ -31,8 +47,8 @@ pipeline {
 					sh """
                         ssh -o StrictHostKeyChecking=no ${env.USER}@${env.HOST} << EOF
                         cd ${env.DIR}
-                        docker compose down
-                        docker compose up -d --build
+                        git pull origin ${TARGET_BRANCH}
+                        docker compose down && docker compose up -d --build
                         exit
                         EOF
                     """
