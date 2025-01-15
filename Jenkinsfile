@@ -8,6 +8,8 @@ pipeline {
 
     stages {
 		stage('Checkout') {
+			echo "env git branch : ${env.GIT_BRANCH}"
+			echo "env git target : ${env.GIT_TARGET}"
 			steps {
 				git branch: env.GIT_BRANCH, url: "${TARGET_URL}", credentialsId : 'Github'
             }
