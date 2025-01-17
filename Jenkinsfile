@@ -17,8 +17,8 @@ pipeline {
 				script {
 					echo "Start Build"
 					sh './gradlew build -x test'
-          			echo "End Build"
-	  			}
+					echo "End Build"
+				}
 			}
 		}
 
