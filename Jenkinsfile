@@ -4,7 +4,11 @@ pipeline {
 	stages {
 		stage('Check out') {
 			steps {
-				git branch : '${ref}', url : 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
+				script {
+					def branchName = ref.replaceAll('refs/heads/', '')
+					echo "Branch Name: ${branchName}"
+					git branch : "${branchName}", url : 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
+				}
 		    }
 		}
 
@@ -13,8 +17,8 @@ pipeline {
 				script {
 					echo "Start Build"
 					sh './gradlew build -x test'
-          			echo "End Build"
-	  			}
+					echo "End Build"
+				}
 			}
 		}
 
