@@ -1,19 +1,24 @@
 pipeline {
 	agent any
 
-    stages {
+	stages {
+		stage('Check out') {
+			steps {
+				git branch : '${ref}', url : 'https://github.com/jaewoong-gwon/esg-self-assessment.git'
+		    }
+		}
+
 		stage('Build') {
 			steps {
 				script {
 					echo "Start Build"
-                    sh 'pwd'
-                    sh './gradlew build -x test'
-                    echo "End Build"
-                }
-            }
-        }
+					sh './gradlew build -x test'
+          			echo "End Build"
+	  			}
+			}
+		}
 
-        stage('Deploy') {
+		stage('Deploy') {
 			steps {
 				sshagent(credentials: ['dev-server-ssh']) {
 					sh """
@@ -24,5 +29,5 @@ pipeline {
                 }
             }
         }
-    }
+	}
 }
